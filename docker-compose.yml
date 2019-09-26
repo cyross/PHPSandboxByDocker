@@ -1,0 +1,49 @@
+version: '3'
+services:
+  php5_5:
+    build:
+      context: ./docker/php5_5
+    volumes:
+    - ./docker/php5_5/work:/work
+    ports:
+    - 8081:80
+    - 8001:8000
+    depends_on:
+    - db
+    tty: true
+  php5_6:
+    build:
+      context: ./docker/php5_6
+    volumes:
+    - ./docker/php5_6/work:/work
+    ports:
+    - 8082:80
+    - 8002:8000
+    depends_on:
+    - db
+    tty: true
+  php7:
+    build:
+      context: ./docker/php7
+    volumes:
+    - ./docker/php7/work:/work
+    ports:
+    - 8080:80
+    - 8000:8000
+    depends_on:
+    - db
+    tty: true
+  db:
+    image: mysql:8
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: test
+      MYSQL_PASSWORD: test
+    volumes:
+    - ./docker/db/init:/docker-entrypoint-initdb.d
+    - ./docker/db/data:/var/lib/mysql
+    - ./docker/db/conf/:/etc/mysql/conf.d
+    - ./docker/db/work:/work
+    ports: 
+    - "3306:3306"
+    tty: true

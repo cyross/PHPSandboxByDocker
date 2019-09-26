@@ -1,0 +1,5 @@
+docker/db/data/*
+docker/db/work/*
+docker/php7/work/*
+docker/php5_6/work/*
+docker/php5_7/work/*
